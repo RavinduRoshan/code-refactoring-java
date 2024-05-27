@@ -1,3 +1,5 @@
+package org.zenflix.entity;
+
 import java.util.List;
 
 public class Customer {

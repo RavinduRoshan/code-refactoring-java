@@ -1,3 +1,5 @@
+package org.zenflix.entity;
+
 import java.util.HashMap;
 
 public class RentalInfo {

@@ -1,3 +1,5 @@
+package org.zenflix.entity;
+
 public class Movie {
     private String title;
     private String code;

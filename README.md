@@ -19,3 +19,7 @@ Note: the Git history must be included.
 javac src/*.java
 java -cp src Main
 ```
+
+## Changeset:
+
+1. Use maven to manage dependencies and structure the project

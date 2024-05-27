@@ -1,3 +1,8 @@
+package org.zenflix;
+
+import org.zenflix.entity.Customer;
+import org.zenflix.entity.MovieRental;
+import org.zenflix.entity.RentalInfo;
 import java.util.Arrays;
 
 public class Main {

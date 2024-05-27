@@ -1,3 +1,5 @@
+package org.zenflix.entity;
+
 public class MovieRental {
     private String movieId;
     private int days;
