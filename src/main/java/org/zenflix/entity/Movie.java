@@ -1,20 +1,14 @@
 package org.zenflix.entity;
 
-public class Movie {
-    private String title;
-    private String code;
+import org.zenflix.constants.MovieType;
 
-    public Movie(String title, String code) {
 
-        this.title = title;
-        this.code = code;
-    }
-
-    public String getTitle() {
-        return title;
-    }
-
-    public String getCode() {
-        return code;
-    }
+/**
+ * Represents a movie with an ID, title, and type.
+ *
+ * @param id    the unique identifier of the movie
+ * @param title the title of the movie
+ * @param type  the type of the movie (e.g., REGULAR, CHILDREN, NEW_RELEASE)
+ */
+public record Movie (String id, String title, MovieType type) {
 }
