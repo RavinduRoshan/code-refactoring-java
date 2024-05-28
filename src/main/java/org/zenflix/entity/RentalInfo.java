@@ -15,8 +15,8 @@ public class RentalInfo {
 
     double totalAmount = 0;
     int frequentEnterPoints = 0;
-    String result = "Rental Record for " + customer.getName() + "\n";
-    for (MovieRental r : customer.getRentals()) {
+    String result = "Rental Record for " + customer.name() + "\n";
+    for (MovieRental r : customer.rentals()) {
       double thisAmount = 0;
 
       // determine amount for each movie

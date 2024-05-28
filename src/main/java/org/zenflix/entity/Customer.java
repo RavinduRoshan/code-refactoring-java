@@ -2,20 +2,11 @@ package org.zenflix.entity;
 
 import java.util.List;
 
-public class Customer {
-    private String name;
-    private List<MovieRental> rentals;
-
-    public Customer(String name, List<MovieRental> rentals) {
-        this.name = name;
-        this.rentals = rentals;
-    }
-
-    public String getName() {
-        return name;
-    }
-
-    public List<MovieRental> getRentals() {
-        return rentals;
-    }
+/**
+ * Represents a customer with a name and a list of movie rentals.
+ *
+ * @param name     the name of the customer
+ * @param rentals  the list of movie rentals associated with the customer
+ */
+public record Customer(String name, List<MovieRental> rentals) {
 }
