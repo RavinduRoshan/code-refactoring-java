@@ -20,29 +20,29 @@ public class RentalInfo {
       double thisAmount = 0;
 
       // determine amount for each movie
-      if (movies.get(r.getMovieId()).type().equals(MovieType.REGULAR)) {
+      if (movies.get(r.movie().id()).type().equals(MovieType.REGULAR)) {
         thisAmount = 2;
-        if (r.getDays() > 2) {
-          thisAmount = ((r.getDays() - 2) * 1.5) + thisAmount;
+        if (r.days() > 2) {
+          thisAmount = ((r.days() - 2) * 1.5) + thisAmount;
         }
       }
-      if (movies.get(r.getMovieId()).type().equals(MovieType.NEW_RELEASE)) {
-        thisAmount = r.getDays() * 3;
+      if (movies.get(r.movie().id()).type().equals(MovieType.NEW_RELEASE)) {
+        thisAmount = r.days() * 3;
       }
-      if (movies.get(r.getMovieId()).type().equals(MovieType.CHILDREN)) {
+      if (movies.get(r.movie().id()).type().equals(MovieType.CHILDREN)) {
         thisAmount = 1.5;
-        if (r.getDays() > 3) {
-          thisAmount = ((r.getDays() - 3) * 1.5) + thisAmount;
+        if (r.days() > 3) {
+          thisAmount = ((r.days() - 3) * 1.5) + thisAmount;
         }
       }
 
       //add frequent bonus points
       frequentEnterPoints++;
       // add bonus for a two day new release rental
-      if (movies.get(r.getMovieId()).type().equals(MovieType.NEW_RELEASE) && r.getDays() > 2) frequentEnterPoints++;
+      if (movies.get(r.movie().id()).type().equals(MovieType.NEW_RELEASE) && r.days() > 2) frequentEnterPoints++;
 
       //print figures for this rental
-      result += "\t" + movies.get(r.getMovieId()).title() + "\t" + thisAmount + "\n";
+      result += "\t" + movies.get(r.movie().id()).title() + "\t" + thisAmount + "\n";
       totalAmount = totalAmount + thisAmount;
     }
     // add footer lines
