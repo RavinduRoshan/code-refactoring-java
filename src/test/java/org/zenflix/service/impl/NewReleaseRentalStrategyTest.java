@@ -1,13 +1,13 @@
 package org.zenflix.service.impl;
 
 import org.junit.jupiter.api.Test;
-import org.zenflix.service.PricingStrategy;
+import org.zenflix.service.RentalStrategy;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
-class NewReleasePricingStrategyTest {
+class NewReleaseRentalStrategyTest {
 
-    private final PricingStrategy pricingStrategy = new NewReleasePricingStrategy();
+    private final RentalStrategy rentalStrategy = new NewReleaseRentalStrategy();
 
     /**
      * Tests the calculation of the price for a rental period of 4 days.
@@ -16,7 +16,7 @@ class NewReleasePricingStrategyTest {
     public void testCalculatePrice_WithAdditionalDays() {
         int days = 4;
         double expectedPrice = 4 * 3;
-        double actualPrice = pricingStrategy.calculatePrice(days);
+        double actualPrice = rentalStrategy.calculatePrice(days);
         assertEquals(expectedPrice, actualPrice,
                 "The price for 4 days should be 12.");
     }
@@ -28,7 +28,7 @@ class NewReleasePricingStrategyTest {
     public void testCalculatePrice_WithZeroDays() {
         int days = 0;
         double expectedPrice = 0.0;
-        double actualPrice = pricingStrategy.calculatePrice(days);
+        double actualPrice = rentalStrategy.calculatePrice(days);
         assertEquals(expectedPrice, actualPrice, "The price for 0 days should be 0.");
     }
 
@@ -39,7 +39,7 @@ class NewReleasePricingStrategyTest {
     public void testCalculatePrice_WithOneDay() {
         int days = 1;
         double expectedPrice = 3.0;
-        double actualPrice = pricingStrategy.calculatePrice(days);
+        double actualPrice = rentalStrategy.calculatePrice(days);
         assertEquals(expectedPrice, actualPrice, "The price for 1 day should be the price per day.");
     }
 }

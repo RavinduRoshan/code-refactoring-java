@@ -6,9 +6,9 @@ import org.zenflix.entity.Movie;
 import org.zenflix.entity.MovieRental;
 import org.zenflix.entity.RentalSummary;
 import org.zenflix.repository.MovieRepository;
-import org.zenflix.service.PricingStrategy;
+import org.zenflix.service.RentalStrategy;
 import org.zenflix.service.RentalService;
-import org.zenflix.util.PricingStrategyFactory;
+import org.zenflix.util.RentalStrategyFactory;
 import org.zenflix.util.StringUtils;
 
 import java.util.List;
@@ -54,22 +54,12 @@ public class RentalServiceImpl implements RentalService {
      * @return the rental amount
      */
     private double calculateAmount(Movie movie, MovieRental rental) {
-        PricingStrategy pricingStrategy = PricingStrategyFactory.getPricingStrategy(movie.type());
-        return pricingStrategy.calculatePrice(rental.days());
+        RentalStrategy rentalStrategy = RentalStrategyFactory.getRentalStrategy(movie.type());
+        return rentalStrategy.calculatePrice(rental.days());
     }
 
     private int getFrequentEnterPoints(MovieType movieType, int days) {
-        if (days <= 0) {
-            return 0;
-        }
-
-        int frequentEnterPoints = 1;
-
-        // Add bonus for a new release rental more than 2 days
-        if (MovieType.NEW_RELEASE.equals(movieType) && days > 2) {
-            frequentEnterPoints++;
-        }
-
-        return frequentEnterPoints;
+        RentalStrategy rentalStrategy = RentalStrategyFactory.getRentalStrategy(movieType);
+        return rentalStrategy.generatePoints(days);
     }
 }

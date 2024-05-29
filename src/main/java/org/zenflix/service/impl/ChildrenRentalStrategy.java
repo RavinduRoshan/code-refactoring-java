@@ -1,11 +1,11 @@
 package org.zenflix.service.impl;
 
-import org.zenflix.service.PricingStrategy;
+import org.zenflix.service.RentalStrategy;
 
 /**
- * Pricing strategy for children's movies.
+ * Rental strategy for children's movies.
  */
-public class ChildrenPricingStrategy implements PricingStrategy {
+public class ChildrenRentalStrategy implements RentalStrategy {
     private static final double DEFAULT_PRICE = 1.5;
     private static final double PRICE_PER_DAY = 1.5;
     private static final int MAX_DAYS_FOR_DEFAULT_PRICE = 3;
