@@ -9,6 +9,8 @@ import org.zenflix.repository.MovieRepository;
 import java.util.Map;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertNotNull;
+import static org.junit.jupiter.api.Assertions.assertNull;
 
 /**
  * Unit tests for {@link MovieRepositoryImpl}.
@@ -38,6 +40,27 @@ public class MovieRepositoryImplTest {
         assertMovie(movies.get("F002"), "F002", "Matrix", MovieType.REGULAR);
         assertMovie(movies.get("F003"), "F003", "Cars", MovieType.CHILDREN);
         assertMovie(movies.get("F004"), "F004", "Fast & Furious X", MovieType.NEW_RELEASE);
+    }
+
+    /**
+     * Tests the {@link MovieRepositoryImpl#findById(String)} method.
+     * Verifies that the correct movie is returned for an existing ID.
+     */
+    @Test
+    void testFindById_existingMovie() {
+        Movie movie = movieRepository.findById("F001");
+        assertNotNull(movie, "Movie should not be null");
+        assertMovie(movie, "F001", "You've Got Mail", MovieType.REGULAR);
+    }
+
+    /**
+     * Tests the {@link MovieRepositoryImpl#findById(String)} method.
+     * Verifies that {@code null} is returned for a non-existing ID.
+     */
+    @Test
+    void testFindById_nonExistingMovie() {
+        Movie movie = movieRepository.findById("F999");
+        assertNull(movie, "Movie should be null for a non-existing ID");
     }
 
     /**
