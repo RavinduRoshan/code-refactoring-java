@@ -4,10 +4,14 @@ import org.zenflix.constants.MovieType;
 import org.zenflix.entity.Customer;
 import org.zenflix.entity.Movie;
 import org.zenflix.entity.MovieRental;
+import org.zenflix.entity.RentalSummary;
 import org.zenflix.repository.MovieRepository;
+import org.zenflix.service.PricingStrategy;
 import org.zenflix.service.RentalService;
+import org.zenflix.util.PricingStrategyFactory;
+import org.zenflix.util.StringUtils;
 
-import java.util.Map;
+import java.util.List;
 
 public class RentalServiceImpl implements RentalService {
     private final MovieRepository movieRepository;
@@ -18,44 +22,54 @@ public class RentalServiceImpl implements RentalService {
 
     @Override
     public String getSummaryStatement(Customer customer) {
-        Map<String, Movie> movies = movieRepository.getAllMovies();
+        RentalSummary rentalSummary = getRentalSummary(customer.rentals());
+        return StringUtils.buildStatement(customer.name(), rentalSummary);
+    }
 
+    private RentalSummary getRentalSummary(List<MovieRental> rentals) {
         double totalAmount = 0;
         int frequentEnterPoints = 0;
-        String result = "Rental Record for " + customer.name() + "\n";
-        for (MovieRental rental : customer.rentals()) {
-            double thisAmount = 0;
+        StringBuilder titlesWithAmount = new StringBuilder();
 
-            // determine amount for each movie
-            if (MovieType.REGULAR.equals(movies.get(rental.movie().id()).type())) {
-                thisAmount = 2;
-                if (rental.days() > 2) {
-                    thisAmount = ((rental.days() - 2) * 1.5) + thisAmount;
-                }
-            }
-            if (MovieType.NEW_RELEASE.equals(movies.get(rental.movie().id()).type())) {
-                thisAmount = rental.days() * 3;
-            }
-            if (MovieType.CHILDREN.equals(movies.get(rental.movie().id()).type())) {
-                thisAmount = 1.5;
-                if (rental.days() > 3) {
-                    thisAmount = ((rental.days() - 3) * 1.5) + thisAmount;
-                }
-            }
+        for (MovieRental rental : rentals) {
+            Movie movie = movieRepository.findById(rental.movieId());
 
-            //add frequent bonus points
-            frequentEnterPoints++;
-            // add bonus for a two day new release rental
-            if (MovieType.NEW_RELEASE.equals(movies.get(rental.movie().id()).type()) && rental.days() > 2) frequentEnterPoints++;
+            double thisAmount = calculateAmount(movie, rental);
+            totalAmount += thisAmount;
 
-            //print figures for this rental
-            result += "\t" + movies.get(rental.movie().id()).title() + "\t" + thisAmount + "\n";
-            totalAmount = totalAmount + thisAmount;
+            frequentEnterPoints += getFrequentEnterPoints(movie.type(), rental.days());
+
+            titlesWithAmount.append("\t").append(movie.title()).append("\t").append(thisAmount).append("\n");
+
         }
-        // add footer lines
-        result += "Amount owed is " + totalAmount + "\n";
-        result += "You earned " + frequentEnterPoints + " frequent points\n";
 
-        return result;
+        return new RentalSummary(totalAmount, frequentEnterPoints, titlesWithAmount.toString());
+    }
+
+    /**
+     * Calculates the rental amount for a given movie rental.
+     *
+     * @param rental the movie rental
+     * @param movie the movie
+     * @return the rental amount
+     */
+    private double calculateAmount(Movie movie, MovieRental rental) {
+        PricingStrategy pricingStrategy = PricingStrategyFactory.getPricingStrategy(movie.type());
+        return pricingStrategy.calculatePrice(rental.days());
+    }
+
+    private int getFrequentEnterPoints(MovieType movieType, int days) {
+        if (days <= 0) {
+            return 0;
+        }
+
+        int frequentEnterPoints = 1;
+
+        // Add bonus for a new release rental more than 2 days
+        if (MovieType.NEW_RELEASE.equals(movieType) && days > 2) {
+            frequentEnterPoints++;
+        }
+
+        return frequentEnterPoints;
     }
 }
