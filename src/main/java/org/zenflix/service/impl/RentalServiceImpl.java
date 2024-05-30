@@ -34,13 +34,12 @@ public class RentalServiceImpl implements RentalService {
         for (MovieRental rental : rentals) {
             Movie movie = movieRepository.findById(rental.movieId());
 
-            double thisAmount = calculateAmount(movie, rental);
+            double thisAmount = calculateAmount(movie.type(), rental);
             totalAmount += thisAmount;
 
             frequentEnterPoints += getFrequentEnterPoints(movie.type(), rental.days());
 
-            titlesWithAmount.append("\t").append(movie.title()).append("\t").append(thisAmount).append("\n");
-
+            titlesWithAmount.append(StringUtils.getTitleWithAmount(movie.title(), thisAmount));
         }
 
         return new RentalSummary(totalAmount, frequentEnterPoints, titlesWithAmount.toString());
@@ -50,11 +49,11 @@ public class RentalServiceImpl implements RentalService {
      * Calculates the rental amount for a given movie rental.
      *
      * @param rental the movie rental
-     * @param movie the movie
+     * @param movieType the movieType
      * @return the rental amount
      */
-    private double calculateAmount(Movie movie, MovieRental rental) {
-        RentalStrategy rentalStrategy = RentalStrategyFactory.getRentalStrategy(movie.type());
+    private double calculateAmount(MovieType movieType, MovieRental rental) {
+        RentalStrategy rentalStrategy = RentalStrategyFactory.getRentalStrategy(movieType);
         return rentalStrategy.calculatePrice(rental.days());
     }
 
