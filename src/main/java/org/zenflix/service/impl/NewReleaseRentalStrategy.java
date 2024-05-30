@@ -9,6 +9,25 @@ public class NewReleaseRentalStrategy implements RentalStrategy {
     private static final int PRICE_PER_DAY = 3;
     private static final int MIN_DAYS_FOR_EXTRA_POINT = 2;
 
+    // Private constructor to prevent instantiation
+    private NewReleaseRentalStrategy() {}
+
+    /**
+     * Singleton Holder class for lazy initialization.
+     */
+    private static class SingletonHolder {
+        private static final NewReleaseRentalStrategy INSTANCE = new NewReleaseRentalStrategy();
+    }
+
+    /**
+     * Provides the global point of access to the Singleton instance.
+     *
+     * @return the single instance of NewReleaseRentalStrategy
+     */
+    public static NewReleaseRentalStrategy getInstance() {
+        return NewReleaseRentalStrategy.SingletonHolder.INSTANCE;
+    }
+
     /**
      * Calculates the rental price for a new released movie based on the number of rental days.
      *

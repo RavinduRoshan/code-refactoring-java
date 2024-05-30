@@ -7,7 +7,7 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 
 class NewReleaseRentalStrategyTest {
 
-    private final RentalStrategy rentalStrategy = new NewReleaseRentalStrategy();
+    private final RentalStrategy rentalStrategy = NewReleaseRentalStrategy.getInstance();
 
     /**
      * Tests the calculation of the price for a rental period of 4 days.

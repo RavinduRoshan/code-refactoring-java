@@ -19,9 +19,9 @@ public class RentalStrategyFactory {
      */
     public static RentalStrategy getRentalStrategy(MovieType type) {
         return switch (type) {
-            case REGULAR -> new RegularRentalStrategy();
-            case CHILDREN -> new ChildrenRentalStrategy();
-            case NEW_RELEASE -> new NewReleaseRentalStrategy();
+            case REGULAR -> RegularRentalStrategy.getInstance();
+            case CHILDREN -> ChildrenRentalStrategy.getInstance();
+            case NEW_RELEASE -> NewReleaseRentalStrategy.getInstance();
         };
     }
 }

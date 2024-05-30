@@ -6,7 +6,7 @@ import org.zenflix.service.RentalStrategy;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
 class RegularRentalStrategyTest {
-    private final RentalStrategy rentalStrategy = new RegularRentalStrategy();
+    private final RentalStrategy rentalStrategy = RegularRentalStrategy.getInstance();
 
     /**
      * Tests the calculation of the price for a rental period less than or equal to the maximum days for default price.
