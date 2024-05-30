@@ -10,6 +10,7 @@ import org.zenflix.service.RentalService;
 import org.zenflix.service.RentalStrategy;
 import org.zenflix.util.RentalStrategyFactory;
 import org.zenflix.util.StringUtils;
+import org.zenflix.util.ValidateUtils;
 
 import java.util.List;
 
@@ -39,6 +40,7 @@ public class RentalServiceImpl implements RentalService {
      */
     @Override
     public String getSummaryStatement(Customer customer) {
+        ValidateUtils.validateCustomer(customer);
         RentalSummary rentalSummary = getRentalSummary(customer.rentals());
         return StringUtils.buildStatement(customer.name(), rentalSummary);
     }
