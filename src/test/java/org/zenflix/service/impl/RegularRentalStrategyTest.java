@@ -52,4 +52,64 @@ class RegularRentalStrategyTest {
         double actualPrice = rentalStrategy.calculatePrice(days);
         assertEquals(expectedPrice, actualPrice, "The price for 1 day should be the default price.");
     }
+
+    /**
+     * Tests that the method returns 0 points for zero rental days.
+     */
+    @Test
+    public void testGeneratePoints_ZeroDays() {
+        int days = 0;
+        int points = rentalStrategy.generatePoints(days);
+        assertEquals(0, points, "Points should be 0 for zero rental days");
+    }
+
+    /**
+     * Tests that the method returns 0 points for negative rental days.
+     */
+    @Test
+    public void testGeneratePoints_NegativeDays() {
+        int days = -1;
+        int points = rentalStrategy.generatePoints(days);
+        assertEquals(0, points, "Points should be 0 for negative rental days");
+    }
+
+    /**
+     * Tests that the method returns 1 point for one rental day.
+     */
+    @Test
+    public void testGeneratePoints_OneDay() {
+        int days = 1;
+        int points = rentalStrategy.generatePoints(days);
+        assertEquals(1, points, "Points should be 1 for one rental day");
+    }
+
+    /**
+     * Tests that the method returns 1 point for two rental days.
+     */
+    @Test
+    public void testGeneratePoints_TwoDays() {
+        int days = 2;
+        int points = rentalStrategy.generatePoints(days);
+        assertEquals(1, points, "Points should be 1 for two rental days");
+    }
+
+    /**
+     * Tests that the method returns 1 points for three rental days.
+     */
+    @Test
+    public void testGeneratePoints_ThreeDays() {
+        int days = 3;
+        int points = rentalStrategy.generatePoints(days);
+        assertEquals(1, points, "Points should be 1 for three rental days");
+    }
+
+    /**
+     * Tests that the method returns 1 points for four rental days.
+     */
+    @Test
+    public void testGeneratePoints_FourDays() {
+        int days = 4;
+        int points = rentalStrategy.generatePoints(days);
+        assertEquals(1, points, "Points should be 1 for four rental days");
+    }
 }
