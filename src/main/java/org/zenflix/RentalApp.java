@@ -8,7 +8,7 @@ import org.zenflix.service.impl.RentalServiceImpl;
 
 import java.util.Arrays;
 
-public class Main {
+public class RentalApp {
     private static final RentalService rentalService = new RentalServiceImpl(new MovieRepositoryImpl());
 
     public static void main(String[] args) {
@@ -20,8 +20,9 @@ public class Main {
                 You earned 2 frequent points
                 """;
 
-        String result = rentalService.getSummaryStatement(new Customer("C. U. Stomer",
-                Arrays.asList(new MovieRental("F001", 3), new MovieRental("F002", 1))));
+        Customer customer = new Customer("C. U. Stomer",
+                Arrays.asList(new MovieRental("F001", 3), new MovieRental("F002", 1)));
+        String result = rentalService.getSummaryStatement(customer);
 
         if (!result.equals(expected)) {
             throw new AssertionError("Expected: "
