@@ -1,6 +1,5 @@
 package org.zenflix.repository.impl;
 
-import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.zenflix.constants.MovieType;
 import org.zenflix.entity.Movie;
@@ -16,16 +15,7 @@ import static org.junit.jupiter.api.Assertions.assertNull;
  * Unit tests for {@link MovieRepositoryImpl}.
  */
 public class MovieRepositoryImplTest {
-    private MovieRepository movieRepository;
-
-    /**
-     * Sets up the test environment before each test.
-     * Initializes the {@link MovieRepositoryImpl} instance.
-     */
-    @BeforeEach
-    void setUp() {
-        movieRepository = new MovieRepositoryImpl();
-    }
+    private final MovieRepository movieRepository = MovieRepositoryImpl.getInstance();
 
     /**
      * Tests the {@link MovieRepositoryImpl#getAllMovies()} method.

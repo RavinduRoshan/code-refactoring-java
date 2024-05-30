@@ -16,8 +16,24 @@ public class MovieRepositoryImpl implements MovieRepository {
     /**
      * Constructs a new {@code MovieRepositoryImpl} and populates it with a default set of movies.
      */
-    public MovieRepositoryImpl() {
+    private MovieRepositoryImpl() {
         populateMovies();
+    }
+
+    /**
+     * Singleton Holder class for lazy initialization.
+     */
+    private static class SingletonHolder {
+        private static final MovieRepositoryImpl INSTANCE = new MovieRepositoryImpl();
+    }
+
+    /**
+     * Provides the global point of access to the Singleton instance.
+     *
+     * @return the single instance of MovieRepositoryImpl
+     */
+    public static MovieRepositoryImpl getInstance() {
+        return MovieRepositoryImpl.SingletonHolder.INSTANCE;
     }
 
     /**
