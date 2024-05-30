@@ -9,7 +9,7 @@ import org.zenflix.service.impl.RentalServiceImpl;
 import java.util.Arrays;
 
 public class RentalApp {
-    private static final RentalService rentalService = new RentalServiceImpl(MovieRepositoryImpl.getInstance());
+    private static final RentalService rentalService = RentalServiceImpl.getInstance();
 
     public static void main(String[] args) {
         String expected = """

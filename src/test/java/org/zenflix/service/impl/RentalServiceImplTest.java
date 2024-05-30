@@ -13,7 +13,7 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
 class RentalServiceImplTest {
-    private final RentalService rentalService = new RentalServiceImpl(MovieRepositoryImpl.getInstance());
+    private final RentalService rentalService = RentalServiceImpl.getInstance();
 
     @Test
     void getSummaryStatement_ValidCustomer_ReturnsSummary() {

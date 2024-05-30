@@ -6,6 +6,7 @@ import org.zenflix.entity.Movie;
 import org.zenflix.entity.MovieRental;
 import org.zenflix.entity.RentalSummary;
 import org.zenflix.repository.MovieRepository;
+import org.zenflix.repository.impl.MovieRepositoryImpl;
 import org.zenflix.service.RentalService;
 import org.zenflix.service.RentalStrategy;
 import org.zenflix.util.RentalStrategyFactory;
@@ -23,12 +24,26 @@ public class RentalServiceImpl implements RentalService {
     private final MovieRepository movieRepository;
 
     /**
-     * Constructs a new {@code RentalServiceImpl} with the specified {@link MovieRepository}.
-     *
-     * @param movieRepository the movie repository used to retrieve movie information
+     * Constructs a new {@code RentalServiceImpl}.
      */
-    public RentalServiceImpl(MovieRepository movieRepository) {
-        this.movieRepository = movieRepository;
+    private RentalServiceImpl() {
+        this.movieRepository = MovieRepositoryImpl.getInstance();
+    }
+
+    /**
+     * Singleton Holder class for lazy initialization.
+     */
+    private static class SingletonHolder {
+        private static final RentalServiceImpl INSTANCE = new RentalServiceImpl();
+    }
+
+    /**
+     * Provides the global point of access to the Singleton instance.
+     *
+     * @return the single instance of RentalServiceImpl
+     */
+    public static RentalServiceImpl getInstance() {
+        return RentalServiceImpl.SingletonHolder.INSTANCE;
     }
 
     /**
