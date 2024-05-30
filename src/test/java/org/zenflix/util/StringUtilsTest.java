@@ -3,7 +3,7 @@ package org.zenflix.util;
 import org.junit.jupiter.api.Test;
 import org.zenflix.entity.RentalSummary;
 
-import static org.junit.jupiter.api.Assertions.*;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.zenflix.constants.Common.NEW_LINE;
 import static org.zenflix.constants.Common.TAB;
 
